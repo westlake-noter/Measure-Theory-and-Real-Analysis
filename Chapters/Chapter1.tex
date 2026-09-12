@@ -1,0 +1,309 @@
+% Sources: original/9.4, photographs 9--16.
+\chapter{Countable Sets and Number Series}
+
+\section{Countable Sets}
+
+\begin{notationenv}
+\[
+    \mathbb N=\{0,1,2,\ldots\},
+    \qquad
+    \mathbb N_+=\{1,2,3,\ldots\}.
+\]
+We also use
+\[
+    \mathbb Z,\qquad \mathbb Q,\qquad \mathbb R,
+    \qquad
+    \mathbb R_{\ge0},\qquad \mathbb R_{>0}.
+\]
+A sequence in a set $S$ is a map
+\[
+    s:\mathbb N\to S,\qquad n\mapsto s_n,
+\]
+denoted by $(s_n)_{n\in\mathbb N}$ or simply $(s_n)$.
+\end{notationenv}
+
+\begin{definitionenv}
+A set $S$ is
+\begin{enumerate}[label=(\arabic*)]
+    \item \textbf{finite} if there exist $n\in\mathbb N$ and a bijection
+    \[
+        \{0,\ldots,n-1\}\longrightarrow S;
+    \]
+    \item \textbf{infinite countable} if there exists a bijection
+    \[
+        \mathbb N\longrightarrow S;
+    \]
+    \item \textbf{countable} if it is finite or infinite countable;
+    \item \textbf{uncountable} if it is not countable.
+\end{enumerate}
+\end{definitionenv}
+
+\begin{definitionenv}
+Two sets $S_1,S_2$ are \textbf{equinumerous} if there exists a bijection
+$S_1\to S_2$.
+\end{definitionenv}
+
+\begin{theoremenv}
+$\mathbb N\times\mathbb N$ is infinite countable.
+\end{theoremenv}
+
+\begin{proofenv}
+For $m\in\mathbb N$, let
+\[
+    S_m:=\{(p,q)\in\mathbb N\times\mathbb N:p+q=m\}.
+\]
+Enumerating $S_0,S_1,S_2,\ldots$ successively gives an enumeration of
+$\mathbb N\times\mathbb N$.
+\end{proofenv}
+
+\begin{exerciseenv}
+Fill in the details of the diagonal enumeration above.
+\end{exerciseenv}
+
+\begin{theoremenv}
+Every subset of a countable set is countable.
+\end{theoremenv}
+
+\begin{proofenv}
+It suffices to consider $A\subseteq\mathbb N$. If $A$ is infinite, define
+\[
+    A_0=A,\qquad a_0=\min A_0,
+\]
+and recursively
+\[
+    A_{n+1}=A_n\setminus\{a_n\},
+    \qquad
+    a_{n+1}=\min A_{n+1}.
+\]
+Then
+\[
+    \mathbb N\to A,\qquad n\mapsto a_n,
+\]
+is a bijection.
+\end{proofenv}
+
+\begin{theoremenv}
+Let $S\neq\varnothing$. The following are equivalent:
+\begin{enumerate}[label=(\Alph*)]
+    \item $S$ is countable;
+    \item there exists a surjection $\mathbb N\to S$;
+    \item there exists an injection $S\to\mathbb N$.
+\end{enumerate}
+Moreover, $\mathbb N$ may be replaced by any infinite countable set.
+\end{theoremenv}
+
+\begin{proofenv}
+$(A)\Rightarrow(B)$ is immediate for infinite $S$; for finite $S$, repeat
+values of a finite enumeration.
+
+$(B)\Rightarrow(C)$: if $f:\mathbb N\to S$ is surjective, define
+\[
+    g(x):=\min f^{-1}(\{x\}).
+\]
+Then $g:S\to\mathbb N$ is injective.
+
+$(C)\Rightarrow(A)$ follows since every subset of $\mathbb N$ is countable.
+\end{proofenv}
+
+\begin{theoremenv}
+Let $m\ge2$ and let $S_1,\ldots,S_m$ be countable
+(respectively, infinite countable). Then
+\[
+    \prod_{j=1}^{m}S_j
+\]
+is countable (respectively, infinite countable).
+\end{theoremenv}
+
+\begin{proofenv}
+Reduce to $m=2$ and use the countability of $\mathbb N\times\mathbb N$.
+The general case follows by induction.
+\end{proofenv}
+
+\begin{exampleenv}
+The set $\mathbb Q$ is infinite countable: $\mathbb N\subseteq\mathbb Q$, and
+\[
+    \mathbb Z\times\mathbb N_+\to\mathbb Q,
+    \qquad
+    (p,q)\mapsto \frac pq,
+\]
+is surjective.
+\end{exampleenv}
+
+\begin{theoremenv}
+Let $J$ be countable and let $(S_j)_{j\in J}$ be a family of countable sets.
+Then
+\[
+    \bigcup_{j\in J}S_j
+\]
+is countable.
+\end{theoremenv}
+
+\begin{exerciseenv}
+Prove the preceding theorem.
+\end{exerciseenv}
+
+\begin{definitionenv}
+Let $S$ be a set and $A\subseteq S$. The \textbf{indicator function} of $A$ is
+\[
+    \mathbf 1_A:S\to\{0,1\},
+    \qquad
+    \mathbf 1_A(x)=
+    \begin{cases}
+        1,&x\in A,\\
+        0,&x\notin A.
+    \end{cases}
+\]
+\end{definitionenv}
+
+\begin{propositionenv}
+The map
+\[
+    \mathcal P(S)\longrightarrow\{f:S\to\{0,1\}\},
+    \qquad
+    A\longmapsto\mathbf 1_A,
+\]
+is a bijection.
+\end{propositionenv}
+
+\begin{theoremenv}[Cantor]
+$\mathcal P(\mathbb N)$ is uncountable.
+\end{theoremenv}
+
+\begin{proofenv}
+Suppose there were a surjection
+\[
+    \mathbb N\to\{f:\mathbb N\to\{0,1\}\},
+    \qquad n\mapsto f_n.
+\]
+Define
+\[
+    f(n)=
+    \begin{cases}
+        0,&f_n(n)=1,\\
+        1,&f_n(n)=0.
+    \end{cases}
+\]
+If $f=f_m$, then $f(m)\neq f_m(m)$, a contradiction.
+\end{proofenv}
+
+\begin{propositionenv}
+\[
+    \mathbb N^{\mathbb N}
+    =
+    \mathbb N\times\mathbb N\times\cdots
+\]
+is uncountable.
+\end{propositionenv}
+
+
+\section{Number Series}
+
+\begin{definitionenv}
+A sequence $(a_n)$ in $\mathbb R$ is \textbf{Cauchy} if
+\[
+    (\forall\varepsilon>0)(\exists m\in\mathbb N)
+    (\forall p,q\in\mathbb N):
+    \quad
+    \min\{p,q\}\ge m
+    \Longrightarrow
+    |a_p-a_q|<\varepsilon.
+\]
+\end{definitionenv}
+
+\begin{theoremenv}
+A sequence in $\mathbb R$ is Cauchy if and only if it is convergent.
+\end{theoremenv}
+
+\begin{definitionenv}
+For a real sequence $(a_n)$, we write $a_n\to+\infty$ if
+\[
+    (\forall M\in\mathbb R)(\exists m\in\mathbb N)(\forall n\in\mathbb N):
+    \quad
+    n\ge m\Longrightarrow a_n>M.
+\]
+\end{definitionenv}
+
+\begin{exampleenv}
+\[
+    \lim_{n\to\infty}n^2=+\infty.
+\]
+\end{exampleenv}
+
+\begin{definitionenv}
+For a sequence $(a_n)_{n\in\mathbb N}$, let
+\[
+    s_n:=\sum_{m=0}^{n}a_m.
+\]
+The series $\sum_{n\in\mathbb N}a_n$ is \textbf{convergent} if $(s_n)$
+converges, in which case
+\[
+    \sum_{n=0}^{\infty}a_n
+    :=
+    \lim_{n\to\infty}\sum_{m=0}^{n}a_m.
+\]
+\end{definitionenv}
+
+\begin{definitionenv}
+A series $\sum_{n\in\mathbb N}a_n$ is
+\begin{enumerate}[label=(\arabic*)]
+    \item \textbf{absolutely convergent} if
+    \[
+        \sum_{n\in\mathbb N}|a_n|
+    \]
+    converges;
+    \item \textbf{commutatively convergent} if, for every permutation
+    $\phi:\mathbb N\to\mathbb N$, the rearranged series
+    \[
+        \sum_{n\in\mathbb N}a_{\phi(n)}
+    \]
+    converges and its sum is independent of $\phi$.
+\end{enumerate}
+\end{definitionenv}
+
+\begin{exampleenv}
+\[
+    \sum_{n=1}^{\infty}\frac1n=+\infty,
+    \qquad
+    \sum_{n=1}^{\infty}(-1)^n
+    \quad\text{diverges}.
+\]
+\end{exampleenv}
+
+\begin{propositionenv}
+Absolute convergence implies convergence.
+\end{propositionenv}
+
+\begin{exampleenv}
+The converse is false: the alternating harmonic series
+\[
+    \sum_{n=1}^{\infty}\frac{(-1)^n}{n}
+\]
+is convergent but not absolutely convergent.
+\end{exampleenv}
+
+\begin{lemmaenv}
+Let $(a_n)$ be decreasing in $\mathbb R_{\ge0}$ with $a_n\to0$.
+Then $\sum_{n=0}^{\infty}(-1)^n a_n$ converges.
+\end{lemmaenv}
+
+\begin{propositionenv}
+There exists a permutation
+\[
+    \phi:\mathbb N_+\to\mathbb N_+
+\]
+such that
+\[
+    \sum_{n=1}^{\infty}
+    \frac{(-1)^{\phi(n)}}{\phi(n)}
+    =+\infty.
+\]
+\end{propositionenv}
+
+\begin{theoremenv}[Riemann]
+Let $\sum_{n\in\mathbb N}a_n$ be a convergent series in $\mathbb R$.
+The following are equivalent:
+\begin{enumerate}[label=(\Alph*)]
+    \item $\sum_{n\in\mathbb N}a_n$ is absolutely convergent;
+    \item $\sum_{n\in\mathbb N}a_n$ is commutatively convergent.
+\end{enumerate}
+\end{theoremenv}

@@ -1,0 +1,622 @@
+\chapter{Kurzweil--Henstock Integration}
+
+
+% Section numbers and titles follow the board (original/9.11, photo 40).
+% Board sections 1--4 correspond to book sections 2.1--2.4.
+\section{Cells, divisions \& partial divisions}
+
+\begin{definitionenv}
+An interval $I\subseteq\mathbb R$ is \textbf{non-degenerate} if
+$I\neq\varnothing$ and $I$ is not a singleton. A \textbf{cell} is a
+non-degenerate interval.
+\end{definitionenv}
+
+\begin{notationenv}
+For $A\subseteq\mathbb R$, write
+\[
+    \operatorname{int}(A),\qquad
+    \operatorname{clos}(A),\qquad
+    \operatorname{bdry}(A)
+\]
+for the interior, closure, and boundary of $A$.
+\end{notationenv}
+
+\begin{propositionenv}
+A cell is compact if and only if it is closed and bounded.
+\end{propositionenv}
+
+\begin{definitionenv}
+For nonempty $S\subseteq\mathbb R$,
+\[
+    \operatorname{diam}S
+    :=
+    \sup\{|x-y|:x,y\in S\}.
+\]
+\end{definitionenv}
+
+\begin{definitionenv}
+A sequence $(I_n)_{n\in\mathbb N}$ is a sequence of \textbf{nested cells} if
+\[
+    I_{n+1}\subseteq I_n\quad\forall n,
+    \qquad
+    \operatorname{diam}I_n\to0,
+\]
+and every $I_n$ is a compact cell.
+\end{definitionenv}
+
+\begin{theoremenv}
+If $(I_n)_{n\in\mathbb N}$ is a sequence of nested cells, then
+$\bigcap_{n\in\mathbb N}I_n$ is a singleton.
+\end{theoremenv}
+
+\begin{exerciseenv}
+Let $J$ be a cell and $x\in J$. Show that there exists a compact cell
+$J'\subseteq J$ such that $x\notin J'$.
+\end{exerciseenv}
+
+\begin{theoremenv}
+Every cell is uncountable.
+\end{theoremenv}
+
+\begin{proofenv}
+Suppose $I=\{x_n:n\in\mathbb N\}$.
+Using the preceding exercise, construct nested compact cells $(I_n)$ such that
+\[
+    I_0\subseteq I,\qquad x_n\notin I_n,\qquad
+    \operatorname{diam}I_{n+1}<\frac12\operatorname{diam}I_n.
+\]
+Then
+\[
+    \bigcap_{n\in\mathbb N}I_n=\{x\}\subseteq I.
+\]
+Since $I=\{x_n:n\in\mathbb N\}$, we have $x=x_m$ for some $m$, contradicting
+$x_m\notin I_m$.
+\end{proofenv}
+
+
+\begin{definitionenv}
+Two cells $I_1,I_2$ are \textbf{non-overlapping} if
+\[
+    \operatorname{clos}(I_1)\cap\operatorname{clos}(I_2)
+\]
+is either empty or a singleton.
+\end{definitionenv}
+
+\begin{propositionenv}
+The following basic properties hold.
+
+\begin{enumerate}[label=(\Alph*)]
+    \item If $I$ is a cell, then
+    \[
+        \operatorname{int}(\operatorname{clos}I)
+        \subseteq I
+        \subseteq
+        \operatorname{clos}(\operatorname{int}I).
+    \]
+
+    \item If $I_1,I_2$ are non-overlapping closed cells, then
+    \[
+        \operatorname{int}(I_1)\cap I_2=\varnothing.
+    \]
+
+    \item If $I_1,I_2$ are cells with $I_1\cap I_2\ne\varnothing$,
+    then $I_1\cup I_2$ is a cell.
+
+    \item Let $I_1,I_2$ be non-overlapping closed cells. The following are
+    equivalent:
+    \begin{enumerate}[label=(\arabic*)]
+        \item $I_1\cup I_2$ is a cell;
+        \item $I_1\cap I_2$ is a singleton;
+        \item $I_1\cap I_2=\{x\}$ for some $x\in\operatorname{int}(I_1\cup I_2)$;
+        \item $I_1\cap I_2\neq\varnothing$.
+    \end{enumerate}
+
+    \item If $I_1,I_2,I_3$ are pairwise non-overlapping, then
+    \[
+        I_1\cap I_2\cap I_3=\varnothing.
+    \]
+
+    \item If $I_1,I_2$ are disjoint cells, then
+    $\operatorname{clos}(I_1)$ and $\operatorname{clos}(I_2)$ are non-overlapping.
+\end{enumerate}
+\end{propositionenv}
+
+\begin{lemmaenv}
+Let $I$ be a compact cell and $N\in\mathbb N_+$. Suppose
+$I_1,\ldots,I_N$ are pairwise non-overlapping compact cells and
+\[
+    I=\bigcup_{n=1}^{N}I_n.
+\]
+After renumbering if necessary,
+\[
+\begin{gathered}
+    \min I_1=\min I,\qquad \max I_N=\max I,\\
+    \max I_n=\min I_{n+1}\qquad(1\le n<N).
+\end{gathered}
+\]
+\end{lemmaenv}
+
+\begin{exerciseenv}
+Prove the preceding lemma.
+\end{exerciseenv}
+
+\begin{definitionenv}
+For a compact cell $[a,b]$, define
+\[
+    \lambda([a,b])=b-a.
+\]
+\end{definitionenv}
+
+\begin{definitionenv}
+A \textbf{division} of a compact cell $I$ is a finite collection
+$\Delta$ of pairwise non-overlapping compact cells such that
+\[
+    \bigcup\Delta=I.
+\]
+If $\Delta=\{I_1,\ldots,I_N\}$, then
+\[
+    \bigcup\Delta:=\bigcup_{n=1}^{N}I_n.
+\]
+\end{definitionenv}
+
+\begin{propositionenv}
+If $\Delta=\{I_1,\ldots,I_N\}$ is a division of $I$, then
+\[
+    \lambda(I)=\sum_{n=1}^{N}\lambda(I_n).
+\]
+\end{propositionenv}
+
+\begin{proofenv}
+Renumber the cells as in the preceding lemma and write $I_n=[a_n,b_n]$.
+Then
+\[
+\begin{aligned}
+    \sum_{n=1}^{N}\lambda(I_n)
+    &=(b_1-a_1)+\cdots+(b_N-a_N)\\
+    &=\max I-\min I\\
+    &=\lambda(I).
+\end{aligned}
+\]
+\end{proofenv}
+
+\begin{theoremenv}[Borel]
+Let $I,I_1,I_2,\ldots$ be compact cells. If
+\[
+    I\subseteq\bigcup_{n=1}^{\infty}I_n,
+\]
+then
+\[
+    \sum_{n=1}^{\infty}\lambda(I_n)\ge\lambda(I).
+\]
+\end{theoremenv}
+
+\begin{definitionenv}
+A \textbf{partial division} of a compact cell $I$ is a finite collection
+$\Delta$ of pairwise non-overlapping compact cells such that
+\[
+    \bigcup\Delta\subseteq I.
+\]
+\end{definitionenv}
+
+\begin{notationenv}
+\[
+    \mathcal C(I)
+    :=
+    \{J:J\text{ is a compact cell contained in }I\}.
+\]
+\end{notationenv}
+
+
+\Needspace{10\baselineskip}
+\section{Gauges, fine P-divisions \& Cousin theorem}
+
+\begin{definitionenv}
+A \textbf{gauge} on a compact cell $I$ is a function
+$\delta:I\to\mathbb R_{>0}$.
+For gauges $\delta_1,\ldots,\delta_N$ on $I$, their pointwise minimum
+\[
+    \delta:=\min\{\delta_1,\ldots,\delta_N\},\qquad
+    \delta(x)=\min_{1\le k\le N}\delta_k(x)
+\]
+is also a gauge on $I$.
+\end{definitionenv}
+
+\Needspace{7\baselineskip}
+\begin{definitionenv}
+A \textbf{$P$-division} of $I$ (respectively, a
+\textbf{partial $P$-division}) is a finite set
+\[
+    \Pi\subseteq\mathcal C(I)\times I
+\]
+such that
+\begin{enumerate}[label=(\arabic*)]
+    \item if $(J,x)\in\Pi$, then $x\in J$;
+    \item if $(J_1,x_1),(J_2,x_2)\in\Pi$ are distinct, then
+    $J_1,J_2$ are non-overlapping;
+    \item
+    \[
+        \Delta_\Pi
+        :=
+        \{J:(J,x)\in\Pi\text{ for some }x\}
+    \]
+    is a division (respectively, a partial division) of $I$.
+\end{enumerate}
+\end{definitionenv}
+
+\begin{definitionenv}
+Let $\delta$ be a gauge on $I$. A (partial) $P$-division $\Pi$ is
+\textbf{$\delta$-fine} if
+\[
+    J\subseteq[x-\delta(x),x+\delta(x)]
+\]
+for every $(J,x)\in\Pi$.
+\end{definitionenv}
+
+% Lecture 2026-09-11: original/9.11, photographs 40--43.
+\begin{notationenv}
+The \textbf{body} of a partial $P$-division $\Pi$ is
+\[
+    \operatorname{body}(\Pi)
+    :=\bigcup\{J:(J,x)\in\Pi\}=\bigcup\Delta_\Pi.
+\]
+\end{notationenv}
+
+\begin{propositionenv}
+Let $I$ be a compact cell.
+\begin{enumerate}[label=(\Alph*)]
+    \item Suppose $\Pi_1,\ldots,\Pi_N$ are partial $P$-divisions of $I$
+    and, for $j\ne k$, the intersection
+    $\operatorname{body}(\Pi_j)\cap\operatorname{body}(\Pi_k)$
+    is empty or a singleton. Then $\bigcup_{k=1}^N\Pi_k$ is a partial
+    $P$-division of $I$.
+    \item For any partial $P$-division $\Pi$ and $\xi\in I$, at most two
+    pairs $(J,x)\in\Pi$ have $x=\xi$.
+\end{enumerate}
+\end{propositionenv}
+
+
+\Needspace{9\baselineskip}
+\begin{exampleenv}
+If a gauge $\delta$ on $I=[a,b]$ is bounded below by $d>0$, choose
+$N\in\mathbb N_+$ with $(b-a)/N<d$. Put
+\[
+    a_n=a+\frac{n(b-a)}N\quad(0\le n\le N),
+    \qquad J_n=[a_n,a_{n+1}]\quad(0\le n<N).
+\]
+Choose any $x_n\in J_n$. Then
+$\Pi=\{(J_n,x_n):0\le n<N\}$ is a $\delta$-fine $P$-division:
+for $y\in J_n$, $|y-x_n|\le(b-a)/N<\delta(x_n)$.
+\end{exampleenv}
+
+\begin{lemmaenv}\label{lem:gluing-tagged-divisions}
+Let $\Delta$ be a division of a compact cell $I$. For each $K\in\Delta$,
+let $\Pi_K$ be a $P$-division of $K$. Then
+\[
+    \bigcup_{K\in\Delta}\Pi_K
+\]
+is a $P$-division of $I$. If each $\Pi_K$ is $\delta|_K$-fine for a gauge
+$\delta$ on $I$, their union is $\delta$-fine.
+\end{lemmaenv}
+
+\begin{exerciseenv}
+Prove Lemma~\ref{lem:gluing-tagged-divisions}.
+\end{exerciseenv}
+
+\begin{theoremenv}[Cousin]\label{thm:cousin}
+Given a compact cell $I$ and a gauge $\delta$ on $I$, there exists a
+$\delta$-fine $P$-division of $I$.
+\end{theoremenv}
+
+\begin{proofenv}
+Suppose no such division exists. Bisect $I_0=I$ into two compact cells.
+At least one half has no $\delta$-fine $P$-division; otherwise the gluing
+lemma would give one for $I_0$. Choose such a half as $I_1$ and repeat.
+This gives nested compact cells satisfying
+\[
+    I_{n+1}\subseteq I_n,\qquad
+    \operatorname{diam}I_n=2^{-n}\operatorname{diam}I,
+\]
+none of which admits a $\delta|_{I_n}$-fine $P$-division.
+The nested-cell theorem gives
+\[
+    \bigcap_{n=0}^{\infty}I_n=\{x\}.
+\]
+Since $\delta(x)>0$, choose $n_0$ such that
+$\operatorname{diam}I_{n_0}<\delta(x)$. As $x\in I_{n_0}$,
+\[
+    I_{n_0}\subseteq[x-\delta(x),x+\delta(x)].
+\]
+Thus $\{(I_{n_0},x)\}$ is a $\delta|_{I_{n_0}}$-fine $P$-division,
+a contradiction.
+\end{proofenv}
+
+
+% Board section 3, title transcribed from photo 42.
+\section{KH-int., lin., mon. \& Cauchy crit.}
+% Lecture 2026-09-11: photographs 42--48.
+
+\begin{notationenv}
+For a compact cell $I$, we also write its length as
+\[
+    |I|:=\lambda(I)=\max I-\min I.
+\]
+Thus $|[a,b]|=b-a$, and $J\subseteq I$ implies $|J|\le|I|$.
+For a division $\Delta$ of $I$, the length identity proved earlier reads
+\[
+    \sum_{J\in\Delta}|J|=|I|.
+\]
+\end{notationenv}
+
+\begin{definitionenv}
+Let $f:I\to\mathbb R$ and let $\Pi$ be a partial $P$-division of $I$.
+The \textbf{Riemann sum} of $f$ over $\Pi$ is
+\[
+    S(\Pi,f):=\sum_{(J,x)\in\Pi}f(x)|J|.
+\]
+In particular, $S(\varnothing,f)=0$.
+\end{definitionenv}
+
+\begin{propositionenv}
+Riemann sums have the following properties.
+\begin{enumerate}[label=(\Alph*)]
+    \item For $\alpha\in\mathbb R$,
+    \[
+        S(\Pi,\alpha f_1+f_2)=\alpha S(\Pi,f_1)+S(\Pi,f_2).
+    \]
+    \item If $f_1\le f_2$ pointwise on $I$, then
+    \[
+        S(\Pi,f_1)\le S(\Pi,f_2).
+    \]
+    \item If $\operatorname{body}(\Pi_1)\cap\operatorname{body}(\Pi_2)$
+    is empty or a singleton, then
+    \[
+        S(\Pi_1\cup\Pi_2,f)=S(\Pi_1,f)+S(\Pi_2,f).
+    \]
+\end{enumerate}
+\end{propositionenv}
+
+\begin{proofenv}
+\textbf{(C).} If $(J,x)\in\Pi_1\cap\Pi_2$, then
+$J\subseteq\operatorname{body}(\Pi_1)\cap\operatorname{body}(\Pi_2)$,
+contradicting non-degeneracy. Hence $\Pi_1\cap\Pi_2=\varnothing$, and
+\[
+    S(\Pi_1\cup\Pi_2,f)
+    =\sum_{(J,x)\in\Pi_1}f(x)|J|
+     +\sum_{(J,x)\in\Pi_2}f(x)|J|.
+\]
+\end{proofenv}
+
+\Needspace{9\baselineskip}
+\begin{definitionenv}
+A function $f:I\to\mathbb R$ is \textbf{Kurzweil--Henstock integrable}
+(\textbf{KH-integrable}) on the compact cell $I$ if there exists
+$r\in\mathbb R$ such that, for every $\varepsilon>0$, there is a gauge
+$\delta$ on $I$ for which
+\[
+    |S(\Pi,f)-r|<\varepsilon
+\]
+for every $\delta$-fine $P$-division $\Pi$ of $I$.
+\end{definitionenv}
+
+\begin{lemmaenv}
+The number $r$ in the definition of KH-integrability is unique.
+\end{lemmaenv}
+
+\begin{proofenv}
+Let $r_1,r_2$ satisfy the definition and fix $\varepsilon>0$.
+Choose corresponding gauges $\delta_1,\delta_2$, and set
+$\delta=\min\{\delta_1,\delta_2\}$. By Cousin's theorem, there is a
+$\delta$-fine $P$-division $\Pi$ of $I$. It is fine for both gauges, so
+\[
+    |r_1-r_2|
+    \le |r_1-S(\Pi,f)|+|S(\Pi,f)-r_2|<2\varepsilon.
+\]
+Since $\varepsilon$ is arbitrary, $r_1=r_2$.
+\end{proofenv}
+
+\begin{notationenv}
+The unique number above is the \textbf{KH integral} of $f$ on $I$, denoted by
+\[
+    \int_I f=\int_I f(x)\,\dd x.
+\]
+For $I=[a,b]$, we also write $\int_a^b f$ or $\int_a^b f(x)\,\dd x$.
+The variable of integration is a dummy variable; for instance,
+\[
+    \int_I f(x)\,\dd x=\int_I f(u)\,\dd u.
+\]
+We write
+\[
+    \mathrm{KH}(I):=\{f:I\to\mathbb R:f\text{ is KH-integrable on }I\}.
+\]
+A gauge $\delta$ is \textbf{$\varepsilon$-adapted to $f$} if every
+$\delta$-fine $P$-division $\Pi$ satisfies
+$|S(\Pi,f)-\int_I f|<\varepsilon$.
+\end{notationenv}
+
+\begin{exampleenv}
+If $f(x)=c$ for all $x\in I$, then for every $P$-division $\Pi$,
+\[
+    S(\Pi,f)=c\sum_{(J,x)\in\Pi}|J|=c|I|.
+\]
+Thus $f\in\mathrm{KH}(I)$ and $\int_I f=c|I|$.
+\end{exampleenv}
+
+\begin{remark}
+KH-integrable functions on compact intervals include constant functions,
+step functions, continuous functions, monotone functions,
+Riemann-integrable functions, Lebesgue-integrable functions, and derivatives.
+\end{remark}
+
+\Needspace{12\baselineskip}
+\begin{theoremenv}[Linearity and monotonicity]\label{thm:kh-linearity-monotonicity}
+The set $\mathrm{KH}(I)$ is a real vector space, and the map
+\[
+    \mathrm{KH}(I)\longrightarrow\mathbb R,
+    \qquad f\longmapsto\int_I f
+\]
+is linear. Moreover, if $f_1,f_2\in\mathrm{KH}(I)$ and $f_1\le f_2$, then
+\[
+    \int_I f_1\le\int_I f_2.
+\]
+\end{theoremenv}
+
+\begin{proofenv}
+\textbf{Monotonicity.} For $\varepsilon>0$, choose
+$\varepsilon$-adapted gauges $\delta_1,\delta_2$ and a
+$\min\{\delta_1,\delta_2\}$-fine $P$-division $\Pi$ by Cousin's theorem.
+Since $S(\Pi,f_1)\le S(\Pi,f_2)$,
+\[
+\begin{aligned}
+    \int_I f_1-\int_I f_2
+    &\le \int_I f_1-S(\Pi,f_1)+S(\Pi,f_2)-\int_I f_2\\
+    &\le\left|\int_I f_1-S(\Pi,f_1)\right|
+       +\left|S(\Pi,f_2)-\int_I f_2\right|<2\varepsilon.
+\end{aligned}
+\]
+Letting $\varepsilon\downarrow0$ gives the assertion.
+\end{proofenv}
+
+
+% The Cauchy criterion and subcell corollary remain in board section 3.
+% Lecture 2026-09-11: photographs 47--49.
+
+\begin{theoremenv}[Cauchy criterion]\label{thm:kh-cauchy}
+Let $I$ be a compact cell and $f:I\to\mathbb R$. The following are equivalent:
+\begin{enumerate}[label=(\Alph*)]
+    \item $f\in\mathrm{KH}(I)$;
+    \item for every $\varepsilon>0$, there is a gauge $\delta$ on $I$ such
+    that, for any two $\delta$-fine $P$-divisions $\Pi,\widetilde\Pi$ of $I$,
+    \[
+        |S(\Pi,f)-S(\widetilde\Pi,f)|<\varepsilon.
+    \]
+\end{enumerate}
+\end{theoremenv}
+
+\begin{proofenv}
+\textbf{$(A)\Rightarrow(B)$.} Choose an $\varepsilon/2$-adapted gauge.
+For any two divisions fine for this gauge,
+\[
+    |S(\Pi,f)-S(\widetilde\Pi,f)|
+    \le\left|S(\Pi,f)-\int_I f\right|
+       +\left|\int_I f-S(\widetilde\Pi,f)\right|<\varepsilon.
+\]
+
+\textbf{$(B)\Rightarrow(A)$.} For each $n\in\mathbb N_+$, choose a gauge
+$\delta_n$ for the error $1/n$ in (B), and define
+\[
+    \widehat\delta_n:=\min\{\delta_1,\ldots,\delta_n\}.
+\]
+By Cousin's theorem, choose a $\widehat\delta_n$-fine $P$-division $\Pi_n$
+of $I$, and put $r_n=S(\Pi_n,f)$. If $p<q$, both $\Pi_p$ and $\Pi_q$
+are $\delta_p$-fine, so
+\[
+    |r_p-r_q|<\frac1p.
+\]
+Thus $(r_n)$ is Cauchy in $\mathbb R$ and converges to some $r\in\mathbb R$.
+
+Given $\varepsilon>0$, choose $n_0$ such that $1/n_0<\varepsilon/2$.
+Let $\Pi$ be any $\delta_{n_0}$-fine $P$-division of $I$.
+For $n\ge n_0$, $\Pi_n$ is also $\delta_{n_0}$-fine. Hence
+\[
+\begin{aligned}
+    |r-S(\Pi,f)|
+    &\le |r-r_n|+|S(\Pi_n,f)-S(\Pi,f)|\\
+    &<|r-r_n|+\frac1{n_0}.
+\end{aligned}
+\]
+Letting $n\to\infty$ gives
+$|r-S(\Pi,f)|\le1/n_0<\varepsilon$.
+Therefore $f\in\mathrm{KH}(I)$ and $\int_I f=r$.
+\end{proofenv}
+
+\begin{corollaryenv}[Subcells]\label{cor:kh-subcells}
+Let $I,J$ be compact cells with $J\subseteq I$. If $f\in\mathrm{KH}(I)$,
+then $f|_J\in\mathrm{KH}(J)$.
+\end{corollaryenv}
+
+\begin{proofenv}
+Write $I=[a,b]$ and $J=[c,d]$. If $a<c$, set $J_1=[a,c]$;
+if $d<b$, set $J_2=[d,b]$. Omit any degenerate end interval.
+
+Fix $\varepsilon>0$ and choose a gauge $\delta$ on $I$ that is
+$\varepsilon/2$-adapted to $f$. By Cousin's theorem, fix
+$\delta|_{J_k}$-fine $P$-divisions $\Pi_k$ on the end intervals present.
+Let $\Pi,\widetilde\Pi$ be any two $\delta|_J$-fine $P$-divisions of $J$.
+Adjoin the same fixed end divisions to obtain $\Pi_0,\widetilde\Pi_0$,
+both $\delta$-fine $P$-divisions of $I$.
+Additivity of Riemann sums cancels the end contributions, giving
+\[
+\begin{aligned}
+    |S(\Pi,f|_J)-S(\widetilde\Pi,f|_J)|
+    &=|S(\Pi_0,f)-S(\widetilde\Pi_0,f)|\\
+    &\le\left|S(\Pi_0,f)-\int_I f\right|
+       +\left|\int_I f-S(\widetilde\Pi_0,f)\right|\\
+    &<\varepsilon.
+\end{aligned}
+\]
+The Cauchy criterion gives $f|_J\in\mathrm{KH}(J)$.
+\end{proofenv}
+
+
+% Board section 4, title transcribed from photo 50.
+\section{Functions that agree except on a countable set}
+% Lecture 2026-09-11: photographs 49--50 and 52--53.
+
+\begin{definitionenv}
+The \textbf{Dirichlet function} is
+\[
+    \mathbf1_{\mathbb Q}:\mathbb R\to\mathbb R,\qquad
+    \mathbf1_{\mathbb Q}(x)=
+    \begin{cases}
+        1,&x\in\mathbb Q,\\
+        0,&x\notin\mathbb Q.
+    \end{cases}
+\]
+\end{definitionenv}
+
+\begin{propositionenv}
+For every compact cell $I$, we have
+$\mathbf1_{\mathbb Q}|_I\in\mathrm{KH}(I)$ and
+\[
+    \int_I\mathbf1_{\mathbb Q}=0.
+\]
+\end{propositionenv}
+
+\begin{proofenv}
+Fix $\varepsilon>0$ and choose a bijection
+$q:\mathbb N_+\to\mathbb Q\cap I$. Define a gauge on $I$ by
+\[
+    \delta(x)=
+    \begin{cases}
+        7^{58},&x\notin\mathbb Q,\\
+        \displaystyle\frac{\varepsilon}{2^{n+2}},&x=q(n).
+    \end{cases}
+\]
+Let $\Pi$ be a $\delta$-fine $P$-division and let
+$F=\{n:q(n)\text{ occurs as a tag in }\Pi\}$, a finite set.
+Only rational tags contribute. Each tag occurs at most twice, and
+each associated cell satisfies $|J|\le2\delta(x)$. Consequently,
+\[
+\begin{aligned}
+    0\le S(\Pi,\mathbf1_{\mathbb Q}|_I)
+    &=\sum_{\substack{(J,x)\in\Pi\\x\in\mathbb Q}}|J|\\
+    &\le4\sum_{n\in F}\delta(q(n))
+      =4\sum_{n\in F}\frac{\varepsilon}{2^{n+2}}\\
+    &<4\sum_{n=1}^{\infty}\frac{\varepsilon}{2^{n+2}}
+      =\varepsilon.
+\end{aligned}
+\]
+Therefore $\int_I\mathbf1_{\mathbb Q}=0$.
+\end{proofenv}
+
+\begin{theoremenv}\label{thm:kh-countable-changes}
+Let $I$ be a compact cell and $f,g:I\to\mathbb R$. If
+$f\in\mathrm{KH}(I)$ and
+\[
+    \{f\ne g\}:=\{x\in I:f(x)\ne g(x)\}
+\]
+is countable, then $g\in\mathrm{KH}(I)$ and
+\[
+    \int_I g=\int_I f.
+\]
+\end{theoremenv}
